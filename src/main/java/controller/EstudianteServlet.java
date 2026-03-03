@@ -82,8 +82,13 @@ public class EstudianteServlet extends HttpServlet {
         String email = request.getParameter("email");
         //boolean activo = request.getParameter("activo") != null;
         boolean activo = true; // Forzamos el 1 en la BD para que no desaparezca de la lista
+        //Cuando es un nuevo registro se lleva a id = 0
+        int id = 0;
+        if (idStr != null && !idStr.isEmpty()) {
+            id = Integer.parseInt(idStr);
+        }
         
-        if (idStr == null || idStr.isEmpty()) {
+        if (id == 0) {
             // Insertar
             Estudiante nuevo = new Estudiante();
             nuevo.setRut(rut);
@@ -94,7 +99,7 @@ public class EstudianteServlet extends HttpServlet {
         } else {
             // Actualizar
             Estudiante existente = new Estudiante();
-            existente.setId(Integer.parseInt(idStr));
+            existente.setId(id);
             existente.setRut(rut);
             existente.setNombre(nombre);
             existente.setEmail(email);
