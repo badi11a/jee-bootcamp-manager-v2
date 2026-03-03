@@ -63,3 +63,10 @@ Se corrigió el error de duplicación de registros y desaparición del listado a
 
 **Nota didáctica sobre la variable `${estudiante}`:**
 El objeto se origina en el controlador (`doGet`), donde se consulta a la base de datos y se adjunta a la petición HTTP mediante `request.setAttribute("estudiante", objeto)`. Posteriormente, en la vista JSP, Expression Language (`${}`) extrae el objeto de la petición y ejecuta automáticamente sus métodos *getter* para poblar el formulario de forma segura.
+
+### Resolución Ticket #002: Buscador de Alumnos por RUT
+Se implementó un filtro de búsqueda dinámico interviniendo las tres capas del patrón MVC:
+
+* **Modelo (DAO):** Se creó el método `buscarPorRut(String rut)` que ejecuta una consulta `SELECT` filtrando por el RUT exacto y manteniendo la regla de negocio `activo = 1`.
+* **Controlador (Servlet):** En el método `doGet`, se interceptó el parámetro GET `rutBusqueda`. Si el parámetro existe y no está vacío, el Servlet delega la búsqueda al nuevo método del DAO. De lo contrario, ejecuta el flujo estándar de `listarTodos()`.
+* **Vista (JSP):** Se integró un formulario de búsqueda (`method="get"`) en la interfaz. Se utilizó la variable implícita `${param.rutBusqueda}` de Expression Language en el atributo `value` del input para conservar visualmente el texto ingresado tras la recarga de la página.
