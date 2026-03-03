@@ -39,7 +39,7 @@ Bootcamp Manager es un sistema web académico desarrollado en Java para la gesti
 
 ## Sprint Backlog - Tickets de Soporte
 
-### Ticket #001 [Mantenimiento Correctivo]: "Fallo en flujo de Actualización"
+### Ticket #001 [Mantenimiento Correctivo]: "Fallo en flujo de Actualización" (Resuelto)
 **Descripción:** Al intentar editar un alumno, se duplica el registro en la BD.
 **Contexto:** Analizar la comunicación entre estudiante-form.jsp y el método doPost del Servlet.
 
@@ -50,3 +50,16 @@ Bootcamp Manager es un sistema web académico desarrollado en Java para la gesti
 ### Ticket #003 [Evolutivo 2]: "Políticas de Soft Delete"
 **Descripción:** Implementar borrado lógico. Los registros no deben desaparecer de la BD.
 **Requisitos:** Usar la columna activo, modificar el DELETE por un UPDATE y filtrar el listado principal.
+
+---
+
+## Changelog
+
+### Resolución Ticket #001: Mantenimiento Correctivo
+Se corrigió el error de duplicación de registros y desaparición del listado al actualizar un estudiante.
+
+* **Fallo de actualización (Duplicidad):** El formulario HTML no enviaba el ID del estudiante. El Servlet recibía un valor nulo o "0" y ejecutaba un `INSERT` en lugar de un `UPDATE`. Se solucionó agregando el campo oculto `<input type="hidden" name="id" value="${estudiante.id}">` en la vista `estudiante-form.jsp` y ajustando la validación en el Servlet.
+* **Fallo de estado (Desaparición):** El parámetro `activo` no se enviaba en la edición, evaluándose como `false` y guardando un `0` en la base de datos. Se forzó el valor `activo = true` en el controlador de manera temporal hasta implementar el borrado lógico (Ticket #003).
+
+**Nota didáctica sobre la variable `${estudiante}`:**
+El objeto se origina en el controlador (`doGet`), donde se consulta a la base de datos y se adjunta a la petición HTTP mediante `request.setAttribute("estudiante", objeto)`. Posteriormente, en la vista JSP, Expression Language (`${}`) extrae el objeto de la petición y ejecuta automáticamente sus métodos *getter* para poblar el formulario de forma segura.
