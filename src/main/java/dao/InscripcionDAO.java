@@ -30,4 +30,19 @@ public class InscripcionDAO {
         }
         return lista;
     }
+    public boolean tieneInscripciones(int estudianteId) {
+    String sql = "SELECT COUNT(*) FROM inscripcion WHERE estudiante_id = ?";
+    try (Connection conn = DatabaseConnection.getInstance();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, estudianteId);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace(); // Revisa la consola si esto falla
+    }
+    return true; // Por seguridad: si falla la BD, asumimos que tiene para no borrar
+}
 }

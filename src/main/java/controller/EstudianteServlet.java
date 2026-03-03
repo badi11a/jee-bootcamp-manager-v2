@@ -11,6 +11,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+
+import dao.InscripcionDAO;
+import model.Estudiante;
+import java.util.ArrayList;
+
 @WebServlet("/estudiantes")
 public class EstudianteServlet extends HttpServlet {
     private EstudianteDAO estudianteDAO = new EstudianteDAO();
@@ -31,14 +36,41 @@ public class EstudianteServlet extends HttpServlet {
                 request.getRequestDispatcher("estudiante-form.jsp").forward(request, response);
                 break;
             case "eliminar":
-                int idEliminar = Integer.parseInt(request.getParameter("id"));
-                estudianteDAO.eliminar(idEliminar);
-                response.sendRedirect("estudiantes");
-                break;
+                try {
+                    int idEliminar = Integer.parseInt(request.getParameter("id"));
+                    InscripcionDAO inscripcionDAO = new InscripcionDAO();
+                    
+                    // Validación con el nuevo método de conteo
+                    if (inscripcionDAO.tieneInscripciones(idEliminar)) {
+                        response.sendRedirect("estudiantes?error=dependencias");
+                        return; // Detiene la ejecución del hilo inmediatamente
+                    } else {
+                        estudianteDAO.eliminar(idEliminar);
+                        response.sendRedirect("estudiantes");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    response.sendRedirect("estudiantes");
+                    return;
+                }    
+            
             default:
-                List<Estudiante> estudiantes = estudianteDAO.listarTodos();
+                String rutBusqueda = request.getParameter("rutBusqueda");
+                List<Estudiante> estudiantes;
+                
+                if (rutBusqueda != null && !rutBusqueda.trim().isEmpty()) {
+                    Estudiante encontrado = estudianteDAO.buscarPorRut(rutBusqueda.trim());
+                    estudiantes = new java.util.ArrayList<>();
+                    if (encontrado != null) {
+                        estudiantes.add(encontrado);
+                    }
+                } else {
+                    estudiantes = estudianteDAO.listarTodos();
+                }
+                
                 request.setAttribute("estudiantes", estudiantes);
                 request.getRequestDispatcher("estudiantes.jsp").forward(request, response);
+                break;
         }
     }
 

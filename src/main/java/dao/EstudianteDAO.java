@@ -81,7 +81,7 @@ public class EstudianteDAO {
     }
 
     public void eliminar(int id) {
-        String sql = "DELETE FROM estudiante WHERE id = ?";
+        String sql = "UPDATE estudiante SET activo = 0 WHERE id = ?";
         try (Connection conn = DatabaseConnection.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -89,5 +89,28 @@ public class EstudianteDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    //Ticket#2
+    public Estudiante buscarPorRut(String rut) {
+        String sql = "SELECT * FROM estudiante WHERE rut = ? AND activo = 1";
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, rut);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Estudiante e = new Estudiante();
+                    e.setId(rs.getInt("id"));
+                    e.setRut(rs.getString("rut"));
+                    e.setNombre(rs.getString("nombre"));
+                    e.setEmail(rs.getString("email"));
+                    e.setActivo(rs.getBoolean("activo"));
+                    return e;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

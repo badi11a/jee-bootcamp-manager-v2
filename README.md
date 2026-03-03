@@ -47,7 +47,7 @@ Bootcamp Manager es un sistema web académico desarrollado en Java para la gesti
 **Descripción:** El cliente requiere filtrar la tabla de alumnos por su RUT.
 **Requisitos:** Crear buscarPorRut() en el DAO y capturar el parámetro en el controlador.
 
-### Ticket #003 [Evolutivo 2]: "Políticas de Soft Delete"
+### Ticket #003 [Evolutivo 2]: "Políticas de Soft Delete" (Resuelto)
 **Descripción:** Implementar borrado lógico. Los registros no deben desaparecer de la BD.
 **Requisitos:** Usar la columna activo, modificar el DELETE por un UPDATE y filtrar el listado principal.
 

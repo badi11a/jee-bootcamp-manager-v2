@@ -26,4 +26,6 @@ public class InscripcionServlet extends HttpServlet {
             response.sendRedirect("estudiantes");
         }
     }
+
+    
 }
