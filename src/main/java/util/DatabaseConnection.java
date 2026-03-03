@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static final String URL = "jdbc:mariadb://localhost:3306/bootcamp_manager";
-    private static final String USER = "app_user";
-    private static final String PASSWORD = "123456"; 
+    private static final String USER = "";
+    private static final String PASSWORD = ""; 
     private static Connection connection;
 
     private DatabaseConnection() {}
