@@ -48,8 +48,9 @@ public class EstudianteServlet extends HttpServlet {
         String rut = request.getParameter("rut");
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
-        boolean activo = request.getParameter("activo") != null;
-
+        //boolean activo = request.getParameter("activo") != null;
+        boolean activo = true; // Forzamos el 1 en la BD para que no desaparezca de la lista
+        
         if (idStr == null || idStr.isEmpty()) {
             // Insertar
             Estudiante nuevo = new Estudiante();

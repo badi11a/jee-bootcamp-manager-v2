@@ -10,6 +10,8 @@
                     </c:choose>
                 </h3>
 <form action="estudiantes" method="post">
+    <!--la siguiente linea es la solucion del ticket 1-->
+    <input type="hidden" name="id" value="${estudiante.id}">
     <div class="mb-3">
         <label for="rut" class="form-label">RUT</label>
         <input type="text" class="form-control" id="rut" name="rut" value="${estudiante.rut}" required maxlength="12">

@@ -1,6 +1,10 @@
 # Maven
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+dependency-reduced-pom.xml
 
 # IDEs
 /.idea/
@@ -9,24 +13,26 @@
 *.iws
 *.sw?
 *.sublime*
-*.vscode/
+.vscode/
 
 # OS
 .DS_Store
+._*
 Thumbs.db
 
-# Logs
+# Logs y Crash Dumps de Java
 *.log
+hs_err_pid*
 
 # Build
 *.war
 *.ear
 *.class
 
-# Others
-/.settings/
-/.classpath
-/.project
+# Eclipse
+.settings/
+.classpath
+.project
 
 # Database
 *.h2.db
