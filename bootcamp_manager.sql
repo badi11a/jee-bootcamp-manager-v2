@@ -39,5 +39,5 @@ CREATE TABLE IF NOT EXISTS inscripcion (
 );
 
 INSERT INTO inscripcion (estudiante_id, curso_id, fecha_inscripcion) VALUES
-(1, 1, '2024-01-10'),
-(2, 2, '2024-02-15');
+(1, 1, '2026-01-10'),
+(2, 2, '2026-02-15');
