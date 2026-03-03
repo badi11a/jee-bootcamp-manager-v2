@@ -70,3 +70,10 @@ Se implementó un filtro de búsqueda dinámico interviniendo las tres capas del
 * **Modelo (DAO):** Se creó el método `buscarPorRut(String rut)` que ejecuta una consulta `SELECT` filtrando por el RUT exacto y manteniendo la regla de negocio `activo = 1`.
 * **Controlador (Servlet):** En el método `doGet`, se interceptó el parámetro GET `rutBusqueda`. Si el parámetro existe y no está vacío, el Servlet delega la búsqueda al nuevo método del DAO. De lo contrario, ejecuta el flujo estándar de `listarTodos()`.
 * **Vista (JSP):** Se integró un formulario de búsqueda (`method="get"`) en la interfaz. Se utilizó la variable implícita `${param.rutBusqueda}` de Expression Language en el atributo `value` del input para conservar visualmente el texto ingresado tras la recarga de la página.
+
+### Resolución Ticket #003: Políticas de Soft Delete e Integridad Referencial
+Se transformó el sistema de eliminación para preservar el histórico de datos y asegurar la integridad del negocio:
+
+* **Modelo (DAO):** Se modificó el método `eliminar(int id)` en `EstudianteDAO` para ejecutar un `UPDATE` de la columna `activo` en lugar de un `DELETE` físico.
+* **Controlador (Servlet):** Se implementó un "Guardia de Integridad" en el flujo de eliminación. Antes de llamar al DAO, el Servlet consulta al `InscripcionDAO` para verificar si el estudiante posee registros vinculados. Si existen, la operación se aborta y se notifica al usuario; de lo contrario, se procede con la desactivación.
+* **Vista (JSP):** Se integró un sistema de alertas dinámicas que intercepta el parámetro `error=dependencias` para informar al usuario sobre la restricción de integridad aplicada.
