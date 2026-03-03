@@ -3,7 +3,7 @@
 <%-- Alerta de validación de regla de negocio --%>
 <c:if test="${param.error == 'dependencias'}">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Operacion denegada:</strong> No se puede desactivar un estudiante que tiene inscripciones activas en cursos.
+        <strong>Operaci&oacute;n denegada:</strong> No se puede desactivar un estudiante que tiene inscripciones activas en cursos.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </c:if>
