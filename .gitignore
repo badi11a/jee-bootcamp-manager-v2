@@ -1,0 +1,42 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+/.idea/
+*.iml
+*.ipr
+*.iws
+*.sw?
+*.sublime*
+*.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build
+*.war
+*.ear
+*.class
+
+# Others
+/.settings/
+/.classpath
+/.project
+
+# Database
+*.h2.db
+*.mv.db
+*.db
+
+# User-specific
+*.local
+*.env
+
+# SQL dumps
+*.sql
+!bootcamp_manager.sql
