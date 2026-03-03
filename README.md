@@ -43,7 +43,7 @@ Bootcamp Manager es un sistema web académico desarrollado en Java para la gesti
 **Descripción:** Al intentar editar un alumno, se duplica el registro en la BD.
 **Contexto:** Analizar la comunicación entre estudiante-form.jsp y el método doPost del Servlet.
 
-### Ticket #002 [Evolutivo 1]: "Buscador de Alumnos por RUT"
+### Ticket #002 [Evolutivo 1]: "Buscador de Alumnos por RUT" (Resuelto)
 **Descripción:** El cliente requiere filtrar la tabla de alumnos por su RUT.
 **Requisitos:** Crear buscarPorRut() en el DAO y capturar el parámetro en el controlador.
 
